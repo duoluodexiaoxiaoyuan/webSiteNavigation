@@ -1,0 +1,15 @@
+{
+  "科技媒体": [
+    {
+      "name": "36氪",
+      "img":"https://blz.nosdn.127.net/sre/images/nav/36kr.png",
+      "description": "创业资讯、科技新闻",
+      "src": "https://www.baidu.com"
+    },
+    {
+      "name": "雷锋网",
+      "img":"https://blz.nosdn.127.net/sre/images/nav/8cae.png",
+      "description": "人工智能和智能硬件媒体"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- 引入组件库 -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <title>网址导航</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .everyItem {
+      display: flex;
+      width: 291px;
+      height: 105px;
+      background-color: gainsboro;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      border-radius: 10px;
+    }
+    .title {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <!-- 所谓的模板语法，就是html+js的混合体 -->
+  <div id="root">
+    <!-- <div class="line"></div> -->
+    <el-menu
+      :default-active="activeIndex2"
+      class="el-menu-demo"
+      mode="horizontal"
+      @select="handleSelect"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b">
+      <el-menu-item index="home.json">首页</el-menu-item>
+      <el-menu-item index="knowledge.json">知识</el-menu-item>
+      <el-menu-item index="develop.json">开发</el-menu-item>
+      <el-menu-item index="tools.json">工具</el-menu-item>
+      <el-menu-item index="myCollection.json">我的收藏</el-menu-item>
+    </el-menu>
+    <div>
+      <div v-for="(item,i) in content" class="content">
+        <div class="title">
+          <h2>{{i}}</h2>
+        </div>
+        <div v-for="(everyitem,i) in item" class="everyItem">
+          <div style="margin:auto"><img :src="everyitem.img" alt="" style="width:35px;height:35px"></div>
+          <div style="margin:auto">
+            <div>{{everyitem.name}}</div>
+            <div>{{everyitem.description}}</div>
+            <span><a :href="everyitem.src" target="_blank">前往</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // 创建一个Vue的实例对象，并传入配置对象
+    const v = new Vue({
+      el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+      data: {
+        activeIndex: '1',
+        activeIndex2: '1',
+        content: {},
+      },
+      methods: {
+        handleSelect(key, keyPath) {
+          console.log(key, keyPath);
+          fetch(`./data/${key}`)
+          .then((response) => response.json())
+          .then((json) => {
+            console.log(json);
+            this.content = json
+          });
+        },
+        changeModule(event){
+          console.log(event);
+        },
+        jump(everyitem){
+          console.log(everyitem);
+          console.log('跳转');
+        }
+      },
+      mounted: function () {
+        fetch('./data/home.json')
+        .then((response) => response.json())
+        .then((json) => {
+          this.content = json
+        });
+      }
+    })
+
+  </script>
+</body>
+</html>
