@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.staticfile.org/vue/2.7.0/vue.min.js"></script>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- 引入组件库 -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <title>首页搜索导航 </title>
+  <style type="text/css"> 
+		body{
+      margin:0px;
+      background: url(./img/雪山.jpg) no-repeat;
+      background-size:100% 100%;
+      background-attachment:fixed;
+		}
+	</style>
+</head>
+<body>
+    <div id="root">
+      <el-input v-model="input" placeholder="请输入内容"  style="width: 300px;" @keyup.enter.native="searchContent"></el-input>
+    </div>
+    <script>
+      const v = new Vue({
+        el: "#root", // el用于指定当前Vue实例为哪个容器服务，值是选择器字符串，怎么的写法类似于jquery
+        data: {
+          input: ''
+        },
+        methods: {
+          searchContent(){
+            console.log(this.input);
+            // window.location.href="http://www.baidu.com/s?ie=UTF-8&wd="+this.input;
+            window.location.href='https://cn.bing.com/search?q='+this.input
+          }
+        }
+    })
+    </script>
+</body>
+</html>
